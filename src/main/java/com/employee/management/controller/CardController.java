@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/cart")
@@ -28,4 +30,8 @@ public class CardController {
         return deleted? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/items")
+    public ResponseEntity<List<CardItem>> getCardItem(@RequestHeader("X-User-ID") String studentId){
+        return ResponseEntity.ok(cardService.getAllCardItems(studentId));
+    }
 }

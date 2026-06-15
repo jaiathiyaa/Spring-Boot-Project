@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -59,9 +60,15 @@ public class CardService {
         Optional<Product> productOpt = productRepositry.findById(productId);
         Optional<Student> studentOpt = studentRepositry.findById(Long.valueOf(studentId));
         if(studentOpt.isPresent() && productOpt.isPresent()){
-            cardItemRepositry.deleteByStudentIdAndProductId(studentOpt.get(),productOpt.get());
+            cardItemRepositry.deleteByStudentIdAndProductId(studentOpt.get().getId(),productOpt.get().getId());
             return true;
         }
         return false;
+    }
+
+    public List<CardItem> getAllCardItems(String studentId) {
+        return studentRepositry.findById(Long.valueOf(studentId))
+                .map(cardItemRepositry::findByStudent)
+                .orElseGet(List::of);
     }
 }
