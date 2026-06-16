@@ -13,4 +13,6 @@ public interface CardItemRepositry extends JpaRepository<CardItem,Long> {
     void deleteByStudentIdAndProductId(Long studentId, Long productId);
 
     List<CardItem> findByStudent(Student student);
+
+    void deleteByStudent(Student student);
 }

@@ -71,4 +71,8 @@ public class CardService {
                 .map(cardItemRepositry::findByStudent)
                 .orElseGet(List::of);
     }
+
+    public void clearCard(String studentId) {
+        studentRepositry.findById(Long.valueOf(studentId)).ifPresent(cardItemRepositry::deleteByStudent);
+    }
 }
